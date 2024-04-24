@@ -1,28 +1,11 @@
-import re
-import ply.lex as lex
+from MyLexer import Lexer
+
+# yacc unsued so far
 import ply.yacc as yacc
 
-# Token definitions
-tokens = (
-  'NOTE',
-  'TEMPO',
-  'PAT',
-  'COMMENT',
-  # 'EMPTY',
-  'LBRACKET',
-  'RBRACKET',
-  'LPAREN',
-  'RPAREN'
-)
 
-# whitespace
-t_ignore =' \t'
 
-# token regular expressions rules for simple tokens
-t_LPAREN = r'\('
-t_RPAREN = r'\)'
-t_LBRACKET = r'\{'
-t_RBRACKET = r'\}'
+
 
 
 # Token definitions
@@ -30,35 +13,40 @@ t_RBRACKET = r'\}'
 # t_TEMPO=r'tempo\(\d+\)\s*{\s*.*\s*}'
 
 
-# regular expression rule with some action
-def t_NEWLINE(t):
-    r'\n+'
-    t.lexer.lineno += t.value.count('\n')
-
-def t_NOTE(t):
-   r'N\d{1,2}(?:_\d{1,2})?'
-   return t
-
-def t_TEMPO(t):
-   r'tempo\(\d+\)' # tempo(34) {
-   t.value = re.search(r'\d+', t.value).group(0)
-   print(t.value, 'THIS IS THE VALUE')
-   return t
-   
-# Error handling rule
-def t_error(t):
-    print("Illegal character '%s'" % t.value[0])
-    t.lexer.skip(1)
-
-# Build the lexer
-lexer = lex.lex()
-  
 data = '''
+
+
+
+---
+Name: "77"
+Artist: "Peso Pluma"
+Charter: "CX404"
+Album: "Génesis"
+Year: "2023"
+Offset: 0
+Difficulty: 3
+PreviewStart: 15
+PreviewEnd: 35
+Genre: "Regional Mexicano"
+MusicStream: "song.mp3"
+---
+
+
+pat hardPattern {
+  N4
+  N4
+  N3
+  N21
+  N21
+
+}
+
 
 tempo(34) {
 
   N4
   N5
+  hardPattern
   N34_5
   N2
 
@@ -66,13 +54,13 @@ tempo(34) {
 
 '''
 
-lexer.input(data)
+lexer = Lexer()
 
-while True:
-   tok = lexer.token()
-   if not tok:
-      break
-   print(tok)
+lexer.build() #  build the lexer
+
+lexer.test(data)
+
+
 
 
 def test_note(noteString)-> bool:
