@@ -16,8 +16,23 @@ import ply.yacc as yacc
 data = '''
 
 
-pat hardPattern {
 
+---
+Name: "77"
+Artist: "Peso Pluma"
+Charter: "CX404"
+Album: "Génesis"
+Year: "2023"
+Offset: 0
+Difficulty: 3
+PreviewStart: 15
+PreviewEnd: 35
+Genre: "Regional Mexicano"
+MusicStream: "song.mp3"
+---
+
+
+pat hardPattern {
   N4
   N4
   N3

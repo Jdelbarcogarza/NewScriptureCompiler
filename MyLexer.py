@@ -8,8 +8,20 @@ class Lexer(object):
 
   # reserved words
   reserved = {
-      "tempo": "TEMPO",
-      "pat": "PAT",
+      'tempo': 'TEMPO',
+      'pat': 'PAT',
+      # ----- palabras reservadas de metadata --------
+      'Name': 'NAME',
+      'Artist': 'ARTIST',
+      'Charter': 'CHARTER',
+      'Album': 'ALBUM',
+      'Year': 'YEAR',
+      'Offset': 'OFFSET',
+      'Difficulty': 'DIFFICULTY',
+      'PreviewStart': 'PREVIEW_START',
+      'PreviewEnd': 'PREVIEW_END',
+      'Genre': 'GENRE',
+      'MusicStream': 'MUSIC_STREAM',
   }
 
   # Token definitions
@@ -21,8 +33,13 @@ class Lexer(object):
     'RBRACKET',
     'LPAREN',
     'RPAREN',
-    'PATTERN_NAME',# token generico para aceptar nombres de patrones 
-    'TEMPO_VAL' # valor dentro de parentesis de tempo
+    'PATTERN_NAME', # token generico para aceptar nombres de patrones 
+    'TEMPO_VAL', # valor dentro de parentesis de tempo
+    # ----------- Tokens para metadata de cancion -----------
+    'COLON',
+    'QUOTES',
+    'DASHES'
+
   ] + list(reserved.values())
 
 
@@ -35,6 +52,8 @@ class Lexer(object):
   t_RPAREN = r'\)'
   t_LBRACKET = r'\{'
   t_RBRACKET = r'\}'
+  t_COLON = r':'
+  t_DASHES = r'\-{3}'
 
   def build(self, **kwargs):
      self.lexer = lex.lex(module=self, **kwargs)
@@ -63,6 +82,19 @@ class Lexer(object):
       t.value = int(t.value)
       return t
   
+  '''
+  Utilzado para extraer el valor en los atributos en la seccion de metadata. Lo que esta dentro de quotes
+  puede tener acentos y otros caracteres no propios del ingles.
+  '''
+  def t_QUOTES(self, t):
+    r'"[a-zA-Z0-9áéíóúüñ.\s]*"'
+    print('ATRIBUTO DE METADATA', t.value)
+    return t
+      
+  
+  '''
+  Este se utiliza para parsear palabras reservadas y aqui dentro se guardan los nombres de los patrones.
+  '''
   def t_PATTERN_NAME(self, t):
       
       r'[a-zA-Z_][a-zA-Z_0-9]*'
@@ -74,10 +106,12 @@ class Lexer(object):
 
 
       NOTA: es importante revisar que el nombre del patron no este ya en el diccionario de tokens.
+
       PREGUNTA: se deben guardar en el lexer las notas que contiene el patron?? AUN NO SE
       '''
-      if t.type == "PATTERN_NAME":
+      if t.type == "PATTERN_NAME" and t.value not in self.declaredPatterns:
           self.tokens.append(t.value)
+          self.declaredPatterns[t.value] = [] # lista para en un futuro guardar todas las notas que contiene el patron.
           print('ahora esta es la lista de tokens', self.tokens)
 
 
@@ -86,16 +120,6 @@ class Lexer(object):
       return t
 
 
-  # def t_PATTERN_NAME(self, t):
-  #     r'[a-zA-Z_][a-zA-Z_0-9]*'
-  #     print(t.value)
-  #     return t
-
-  # def t_TEMPO(self, t):
-  #   r'tempo\(\d+\)' # tempo(34) {
-  #   t.value = re.search(r'\d+', t.value).group(0)
-  #   print(t.value, 'THIS IS THE VALUE')
-  #   return t
     
   # Error handling rule
   def t_error(self, t):
