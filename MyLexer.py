@@ -36,13 +36,14 @@ class Lexer(object):
     'PATTERN_NAME', # token generico para aceptar nombres de patrones 
     'TEMPO_VAL', # valor dentro de parentesis de tempo
     # ----------- Tokens para metadata de cancion -----------
-    'COLON',
+    # 'COLON',
     'QUOTES',
     'DASHES'
 
   ] + list(reserved.values())
 
-
+  # characters returned "as-is" by the lexer
+  literals = [':']
 
   # whitespace
   t_ignore =' \t'
@@ -52,7 +53,7 @@ class Lexer(object):
   t_RPAREN = r'\)'
   t_LBRACKET = r'\{'
   t_RBRACKET = r'\}'
-  t_COLON = r':'
+  # t_COLON = r':'
   t_DASHES = r'\-{3}'
 
   def build(self, **kwargs):
