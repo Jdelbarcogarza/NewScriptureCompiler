@@ -1,0 +1,89 @@
+  
+# bloque de metadata se divide con los tres DASHES #
+  
+---
+Name: "77"
+Artist: "Peso Pluma"
+Charter: "CX404"
+Album: "Génesis"
+Year: "2023"
+Offset: 0
+Difficulty: 3
+PreviewStart: 15
+PreviewEnd: 35
+Genre: "Regional Mexicano"
+MusicStream: "song.mp3"
+---
+
+
+# declara bloque de patrones #
+***
+pat hardPattern {
+  N4
+  N4
+  N3
+  N21
+  N21
+
+}
+
+pat easyPattern {
+  N4
+  N4
+  N3
+  N21
+  N21
+
+}
+
+
+***
+# hay un contador global que marca el timestamp en el que 
+se escriben las notas en el archivo .charts.  #
+
+# declara bloque de tempos aka notas #
+
++++
+  tempo(10) {
+    # para delcarar un tempo gigante se sugiere hacer 
+      tempo(10000) { E }
+    #
+    E
+    E
+  }
+
+  tempo(35) {
+
+    N4
+    N5
+    hardPattern
+    N34_200
+    easyPattern
+    N2
+
+  }
+
++++
+
+# los milisegundos se le añaden al tempo de la nota.
+  0
+  10 E
+  20 E
+  55 N4
+  90 N5
+  125 N4
+  160 N4
+  195 N3
+  230 N21
+  265 N21
+#
+
+
+
+    * *
+    * *
+    * *
+---------
+* * * * *
+1 2 3 4 5
+

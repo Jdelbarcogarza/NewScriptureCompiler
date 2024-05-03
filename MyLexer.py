@@ -1,6 +1,4 @@
-import re
 import ply.lex as lex
-
 
 class Lexer(object):
 
@@ -126,4 +124,3 @@ class Lexer(object):
   def t_error(self, t):
       print("Illegal character '%s'" % t.value[0])
       t.lexer.skip(1)
-
