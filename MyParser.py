@@ -16,22 +16,36 @@ class Parser(object):
 
   # puede ser start o end con los ---
   def p_metadata_block_limit(self, p):
-    '''metadata_block_limit : DASHES
-    '''
-    if not self.metadata_block_matched:
-            print("Metadata block limit matched:", p[1])
-            self.metadata_block_matched = True  # Set flag to True after matching
+    '''metadata_block_limit : metadata_attribute 
+                            | DASHES
+                            | metadata_block_limit metadata_attribute'''
+                            
+    if len(p) == 1:
+      print("DASHES",p[0])
+    if len(p) == 2:
+            p[0] = [p[1]]
     else:
-        # Ignore subsequent matches
-        pass
+        p[0] = p[1] + [p[2]]
+      
+    
 
   def p_metadata_attribute(self, p):
-     '''metadata_attribute : NAME ':' QUOTES
-     '''
-     print("atributo", p[1], p[3])
+    '''metadata_attribute : NAME COLON QUOTES
+                           | ARTIST COLON QUOTES
+                           | CHARTER COLON QUOTES
+                           | ALBUM COLON QUOTES
+                           | YEAR COLON QUOTES
+                           | OFFSET COLON NUMBER
+                           | DIFFICULTY COLON NUMBER
+                           | PREVIEW_START COLON QUOTES
+                           | PREVIEW_END COLON QUOTES
+                           | GENRE COLON QUOTES
+                           | MUSIC_STREAM COLON QUOTES'''
+    p[0] = (p[1], p[3])
+    print("atributo", p[1], p[3])
   
   def p_tempo_block(self, p):
-    '''tempo_block : TEMPO LPAREN TEMPO_VAL RPAREN LBRACKET note_list RBRACKET'''
+    '''tempo_block : TEMPO LPAREN NUMBER RPAREN LBRACKET note_list RBRACKET'''    
     print("Tempo:", p[3])
     for note in p[6]:
         print("Note:", note)

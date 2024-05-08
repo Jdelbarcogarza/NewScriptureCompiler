@@ -32,11 +32,12 @@ class Lexer(object):
     'LPAREN',
     'RPAREN',
     'PATTERN_NAME', # token generico para aceptar nombres de patrones 
-    'TEMPO_VAL', # valor dentro de parentesis de tempo
+    # 'TEMPO_VAL', # valor dentro de parentesis de tempo
     # ----------- Tokens para metadata de cancion -----------
-    # 'COLON',
+    'COLON',
     'QUOTES',
-    'DASHES'
+    'DASHES',
+    'NUMBER' # alternativa a tempo val
 
   ] + list(reserved.values())
 
@@ -66,6 +67,11 @@ class Lexer(object):
                 break
             print(tok)
      
+  # Define regular expression rules for tokens
+  def t_NUMBER(self, t):
+      r'\d+'
+      t.value = int(t.value)
+      return t
 
   # regular expression rule with some action
   def t_NEWLINE(self, t):
@@ -76,10 +82,14 @@ class Lexer(object):
     r'N\d{1,2}(?:_\d{1,2})?'
     return t
   
-  def t_TEMPO_VAL(self, t):
-      r'\d+'
-      t.value = int(t.value)
-      return t
+  # def t_TEMPO_VAL(self, t):
+  #     r'\d+'
+  #     t.value = int(t.value)
+  #     return t
+  
+  def t_COLON(self, t):
+    r':'
+    return t
   
   '''
   Utilzado para extraer el valor en los atributos en la seccion de metadata. Lo que esta dentro de quotes
@@ -87,7 +97,8 @@ class Lexer(object):
   '''
   def t_QUOTES(self, t):
     r'"[a-zA-Z0-9áéíóúüñ.\s]*"'
-    print('ATRIBUTO DE METADATA', t.value)
+    # print('ATRIBUTO DE METADATA', t.value)
+    t.value = t.value[1:-1]  # Remove quotation marks
     return t
       
   
@@ -114,7 +125,7 @@ class Lexer(object):
           print('ahora esta es la lista de tokens', self.tokens)
 
 
-      print('el valor:', t.value)
+      # print('el valor:', t.value)
 
       return t
 
