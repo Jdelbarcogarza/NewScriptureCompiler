@@ -27,7 +27,8 @@ class Lexer(object):
   # Token definitions
   tokens = [
     'NOTE',
-    'COMMENT',
+    'COMMENTS',
+    'NEWLINE',
     # 'EMPTY',
     'LBRACKET',
     'RBRACKET',
@@ -56,6 +57,7 @@ class Lexer(object):
   # t_COLON = r':'
   t_DASHES = r'\-{3}'
 
+
   def build(self, **kwargs):
      self.lexer = lex.lex(module=self, **kwargs)
 
@@ -78,10 +80,21 @@ class Lexer(object):
     r'N\d{1,2}(?:_\d{1,2})?'
     return t
   
+  #def t_COMMENT(self,t):
+   #  r'\#.*'
+    # t.lexer.lineno += t.value.count('\n')
+     #return t
+  def t_COMMENTS(self,t):
+        r'\#.*'
+        print('Comentario', t.value)
+        pass 
+  
   def t_TEMPO_VAL(self, t):
       r'\d+'
       t.value = int(t.value)
       return t
+  
+
   
   '''
   Utilzado para extraer el valor en los atributos en la seccion de metadata. Lo que esta dentro de quotes
