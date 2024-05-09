@@ -10,7 +10,7 @@ import ply.yacc as yacc
 
 
 # Token definitions
-
+# t_NOTE=r'N\d{1,2}(?:_\d{1,2})?$'
 
 
 data = '''
@@ -31,7 +31,7 @@ Genre: "Regional Mexicano"
 MusicStream: "song.mp3"
 ---
 
-#Comentario de prueba
+
 pat hardPattern {
   N4
   N4
@@ -63,6 +63,14 @@ lexer.test(data)
 
 
 
+def test_note(noteString)-> bool:
+  pattern = re.compile(t_NOTE)
+  if pattern.match(noteString):
+
+    print(noteString, 'valid input')
+
+  else:
+    print(noteString, 'not valid')
 
 
 # ----- PROGRAM ------
