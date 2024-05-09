@@ -1,88 +1,43 @@
 from MyLexer import Lexer
 from MyParser import Parser
 
-
-
-
-
-
 # Token definitions
 # t_NOTE=r'N\d{1,2}(?:_\d{1,2})?$'
 # t_TEMPO=r'tempo\(\d+\)\s*{\s*.*\s*}'
 
 def main():
+    # Solicitar al usuario el nombre del archivo
+    filename = input("Ingrese el nombre del archivo: ")
 
-  data = '''
+    try:
+      # Abrir el archivo en modo lectura
+      with open(filename, 'r') as file:
+        # Leer el contenido del archivo
+        data = file.read()
 
-  ---
-  Name: "77"
-  Artist: "Peso Pluma"
-  Charter: "CX404"
-  Album: "Génesis"
-  Year: "2023"
-  Offset: 0
-  Difficulty: 3
-  PreviewStart: 15
-  PreviewEnd: 35
-  Genre: "Regional Mexicano"
-  MusicStream: "song.mp3"
-  ---
+      # Crear el lexer
+      lexer = Lexer()
 
+      # Construir el lexer
+      lexer.build()
 
-  pat hardPattern {
-    N4
-    N4
-    N3
-    N21
-    N21
+      # Probar el lexer con el contenido del archivo
+      lexer.test(data)
 
-  }
-
-    pat easyPattern {
-    N4
-    N4
-    N3
-    N21
-    N21
-
-  }
-
-  tempo(34) {
-
-    N4
-    N5
-    hardPattern
-    N34_5
-    easyPattern
-    N2
-
-  }
-
-  '''
-
-  # create lexer
-  lexer = Lexer()
-
-  # build the lexer
-  lexer.build()
-
-  # test method for input (deprecated)
-  lexer.test(data)
-
-  # create parser
-  # yaccParser = Parser(lexer)
-
-  # yaccParser.parser.parse(data)
+    except FileNotFoundError:
+        print(f"El archivo '{filename}' no existe.")
+    except IOError:
+        print(f"Error al leer el archivo '{filename}'.")
 
 
-  def test_note(noteString)-> bool:
-    pattern = re.compile(t_NOTE)
-    if pattern.match(noteString):
+    def test_note(noteString)-> bool:
+      pattern = re.compile(t_NOTE)
+      if pattern.match(noteString):
 
-      print(noteString, 'valid input')
+        print(noteString, 'valid input')
 
-    else:
-      print(noteString, 'not valid')
+      else:
+        print(noteString, 'not valid')
 
 
 # ----- PROGRAM ------
