@@ -27,7 +27,7 @@ class Lexer(object):
     'NOTE',
     'COMMENTS',
     'NEWLINE',
-    # 'EMPTY',
+    'EMPTY',
     'LBRACKET',
     'RBRACKET',
     'LPAREN',
@@ -76,6 +76,10 @@ class Lexer(object):
 
   def t_NOTE(self, t):
     r'N\d{1,2}(?:_\d{1,2})?'
+    return t
+  
+  def t_NOTE(self, t):
+    r'e\d{1,2}(?:_\d{1,2})?'
     return t
   
   #def t_COMMENT(self,t):

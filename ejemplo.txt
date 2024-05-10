@@ -17,13 +17,13 @@ MediaType = "cd"
 MusicStream = "song.ogg"
 </metadata>
 
-# ¿Qué es esto?
 <synctrack>
 0 = TS 4
 0 = B 123690
 1152 = B 160000
 </synctrack>
 
+# Aún no está en el lexer
 <events>
 1152 = E "section Intro A"
 7392 = E "section Intro B" 
@@ -55,5 +55,8 @@ tempo(50){ # Inicia en el milisegundo 1150
     n4 # Nota azul de duración normal
 }
 # + 50 milisegundos por duración de nota y su distancia -> 7 * 50 = 350 milisegundos
-tempo()
+tempo(46) {
+    
+}
+
 </notes>
