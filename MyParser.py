@@ -69,7 +69,7 @@ class Parser(object):
 
     # Regla para el bloque de canción
     def p_song_block(self, p):
-        '''song_block : ASTERISKS NEWLINE tempo_definitions ASTERISKS NEWLINE'''
+        '''song_block : PLUS NEWLINE tempo_definitions PLUS NEWLINE'''
         pass
 
     # Regla para las definiciones de tempo

@@ -33,12 +33,11 @@ class Lexer(object):
         'RPAREN',
         'PATTERN_NAME', # Token genérico para aceptar nombres de patrones 
         'TEMPO_VAL', # Valor dentro de paréntesis de tempo
-        # ----------- Tokens para metadata de canción -----------
-        # 'COLON',
         'QUOTES',
         'DASHES',
         'NEWLINE',
-        'ASTERISKS',  # Nuevo token para los caracteres '*'
+        'ASTERISKS',
+        'PLUS'
     ] + list(reserved.values())
 
     # Caracteres devueltos "tal cual" por el lexer
@@ -117,6 +116,11 @@ class Lexer(object):
     # Regla para el token ASTERISKS
     def t_ASTERISKS(self, t):
         r'\*{3}'
+        return t
+    
+    # Regla para el token PLUS
+    def t_PLUS(self, t):
+        r'\+{3}'
         return t
 
     # Regla para manejo de errores
