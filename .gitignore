@@ -1,3 +1,4 @@
 env/
 __pycache__/
 NewScriptureenv3.12.3/
+.venv/
