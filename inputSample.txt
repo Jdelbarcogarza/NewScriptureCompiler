@@ -11,7 +11,6 @@ PreviewEnd: 35
 Genre: "Regional Mexicano"
 MusicStream: "song.mp3"
 ---
-***
 pat hardPattern {
 N4
 N4
@@ -26,8 +25,7 @@ N3
 N21
 N21
 }
-***
-+++
+---
 tempo(34) {
 N4
 N5
@@ -36,4 +34,3 @@ N34_5
 easyPattern
 N2
 }
-+++
