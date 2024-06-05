@@ -36,13 +36,16 @@ El proyecto utiliza la biblioteca `sly` para la creación de lexers y parsers.
 ### Ejecución
 
 Para ejecutar el compilador, simplemente ejecute el script `NewScripture.py`:
-```sh
-python NewScripture.py <y el nombre del archivo de entrada, ejemplo: inputSample.txt>
-
 
 ## Manual de Usuario
 
 ### Formato del Archivo de Entrada
+
+```sh
+python NewScripture.py <y el nombre del archivo de entrada, ejemplo: inputSample.txt>
+
+
+
 
 El archivo de entrada (`test2.txt`) debe seguir un formato específico para ser procesado correctamente. A continuación se presenta un ejemplo del formato requerido:
 
