@@ -37,7 +37,7 @@ El proyecto utiliza la biblioteca `sly` para la creación de lexers y parsers.
 
 Para ejecutar el compilador, simplemente ejecute el script `NewScripture.py`:
 ```sh
-python NewScripture.py <y el nombre del archivo de entrada, ejemplo: inputSample.ns>
+python NewScripture.py <y el nombre del archivo de entrada, ejemplo: inputSample.txt>
 
 
 ## Manual de Usuario
@@ -102,7 +102,7 @@ patJuna
    - Defina los patrones y tempos en los bloques subsecuentes.
 
 2. **Ejecución del Compilador**:
-   - Ejecute el script `NewScripture.py` usando Python.
+   - Ejecute el script `NewScripture.py` con el archivo de entrada usando Python.
    - El archivo `notes.chart` se generará en el mismo directorio que el script.
 
 ### Salida
