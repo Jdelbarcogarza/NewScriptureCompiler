@@ -37,4 +37,4 @@ El proyecto utiliza la biblioteca `sly` para la creación de lexers y parsers.
 
 Para ejecutar el compilador, simplemente ejecute el script `NewScripture.py`:
 ```sh
-python NewScripture.py
+python NewScripture.py <y el nombre del archivo de entrada, ejemplo: inputSample.ns>
